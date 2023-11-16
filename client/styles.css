@@ -157,14 +157,18 @@ span {
 .listing-wrapper{
     display: flex;
     flex-direction: column;
+    margin-top: 10vw;
+    align-items: center;
 }
 .items-box {
     display: flex;
     /* border: 5px solid red; */
     width: 100%;
-    position: relative;
-    top: 500px;
+    margin-top: 5vw;
+    /* position: relative; */
+    /* top: 60px; */
 }
+
 .card-image-wrapper{
     position: relative;
 }
@@ -182,7 +186,7 @@ span {
     position: absolute;
     top: 4vw;
     left: 15%;
-    padding: 10px 30px;
+    padding-top: 5vw;
 }
 .filter-by-borough{
     margin-right: 20px;
@@ -211,8 +215,8 @@ span {
     background-color: rgb(20,20,130);
     display: flex;
     flex-wrap: wrap;
-    position: relative;
-    top: 200px;
+    /* position: relative; */
+    /* top: 200px; */
     padding: 20px;
     color: rgb(202, 220, 200);
 }
