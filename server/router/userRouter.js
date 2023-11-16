@@ -6,16 +6,19 @@ const userController = require('../controller/userController');
 router.post('/login', userController.verifyUser, userController.createSession, (req, res) => {
     if (res.locals.found) {
         const cookieInfo = res.locals.cookieInfo;
-        res.cookie(session, cookieInfo, { maxAge: 60, HttpOnly: true});
+        console.log('res.locals.found was true ',cookieInfo );
+        res.cookie('session', cookieInfo, { maxAge: 600, HttpOnly: true});
         res.sendStatus(200);
 
     } else res.sendStatus(404);
 })
 
+//
+
 //POST - create a new user
 router.post('/', userController.testSignupCreds, userController.createUser, userController.createSession, (req, res) => {
-    const cookieInfo = res.locals.cookieInfo;
-    res.cookie(session, cookieInfo, { maxAge: 60, HttpOnly: true});
+    //const cookieInfo = res.locals.cookieInfo;
+    res.cookie('session', "cookie", { maxAge: 60, HttpOnly: true});
     res.sendStatus(200)
 })
 

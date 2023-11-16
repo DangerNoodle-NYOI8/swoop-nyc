@@ -6,15 +6,10 @@ const userController = {};
 //tests the username and password inputs to make sure they pass the requirements 
 userController.testSignupCreds = (req, res, next) => {
     const {username, password} = req.body.user;
-    console.log(password)
     const usernameReg = new RegExp("^(?=.*[!@#$%^&*()_+=[]{};':\",./<>?~`])$");
     const passwordReg = new RegExp("^(?=.*[A-Za-z])(?=.*?[0-9])(?=.*?[?!.'$])[A-Za-z0-9?!.$']{8,}$");
     //"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d?!.$']{5,}$"
-    console.log('this is the username: ', usernameReg.test(username))
-    
-    console.log('this is the password: ', passwordReg.test(password))
     if (usernameReg.test(username)) {
-        console.log('inside the username regex')
         const error = {
             log: 'Username cannot contain any special characters.',
             status: 400,
@@ -23,7 +18,6 @@ userController.testSignupCreds = (req, res, next) => {
         return next(error)
     }
     if (!passwordReg.test(password)) {
-        console.log('inside the password regex')
         const error = {
             log: 'Password either contains incorrect special characters, is not the correct length, or does not have at least one letter and one number present. Can only include the following special characters: ?, !, ., $, \'.',
             status: 400,
@@ -32,18 +26,15 @@ userController.testSignupCreds = (req, res, next) => {
         return next(error);
     }
     res.locals.user = {username: username, password: password};
-    console.log('made it to the end of the username and password check')
     next();
 };
 //creates a new document in the user collection
 userController.createUser = async (req, res, next) => {
    const {username, password} = res.locals.user
-   console.log(username, password);
     const newUser = ({username: username, password:password});
     try {
         const DBresponse = await User.create(newUser);
         res.locals.username = username;
-        console.log(DBresponse)
     }
     catch (err) {
         const error = {
@@ -58,15 +49,13 @@ userController.createUser = async (req, res, next) => {
 
 //checks to make sure the username exists and that the password matches whats in the DB
 userController.verifyUser = async (req, res, next)=> {
+    console.log(req.body)
     const {username, password} = req.body.user
-    console.log('this is the username: ', username);
-
     try {
         //verify username exists for creating new user
         const user = await User.findOne({username: username})
         if (user.password === password) {
-            console.log('password was correct')
-            res.locas.found = true;
+            res.locals.found = true;
             res.locals.username = username;
             res.locals.password = password;
         }
@@ -96,10 +85,12 @@ userController.createSession = async (req, res, next) => {
     const username = res.locals.username;
     try {
         const DBresponse = await Session.create({cookieId: username})
-        res.local.cookieInfo = DBresponse.id;
+        res.locals.cookieInfo = DBresponse.id;
+        console.log("here is the id of the session document: ", DBresponse.id)
         next();
     }
     catch (err) {
+        console.log(err.message)
         const error = {
             log: 'userController.createSession',
             status: 400,
