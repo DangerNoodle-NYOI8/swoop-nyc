@@ -89,8 +89,10 @@ module.exports = {
       '/listings': 'http://localhost:3000',
       '/createpost': 'http://localhost:3000',
       '/all-listings': 'http://localhost:3000',
+      '/auth/login': 'http://localhost:3000',
       '/login': 'http://localhost:3000',
       '/create-new-user': 'http://localhost:3000',
+
     },
   },
 };
