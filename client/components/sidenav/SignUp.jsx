@@ -1,7 +1,9 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [signupMessage, setsignupMessage] = useState([]);
   //async function that will check to see if the user exists
   const createUser = async () => {
@@ -17,12 +19,6 @@ const Signup = () => {
         return;
       }
     }
-    //checks to make sure password does not have any special characters defined in the regex expression. 
-      // if (password.value.matches('^(?=*[@$%*#&])$')) {
-      //   setsignupMessage([<p>Cannot use any of the following special characters in your password: @, $, %, *, #, &.</p>])
-      //   return;
-      // }
-
       //construct the object I am going to POST to the server 
     const options = {
       method: 'POST',
@@ -31,6 +27,8 @@ const Signup = () => {
       };
     try {
       const serverReponse = await fetch('http://localhost:3000/create-new-user/', options);
+      if (serverReponse.ok) return navigate('/', { replace: true })
+      else setsignupMessage([<p id='error'>Unable to create account. Please try again.</p>])
     }
     catch (err) {
       //if the login fails, throw this error below the login button

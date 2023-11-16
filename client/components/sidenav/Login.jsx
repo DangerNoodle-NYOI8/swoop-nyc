@@ -24,14 +24,16 @@ const Login = () => {
     try {
       console.log('button is pressed')
       const serverReponse = await fetch('/auth/login/', options);
-      // setLoginRedirect([true]);
+      console.log(serverReponse)
+      if (serverReponse.ok) {
+        navigate('/', { replace: true })
+      } else {
+        setLoginMessage([<p id='error'>Could not find username or password.</p>])
+      }
     }
     catch (err) {
       //if the login fails, throw this error below the login button
       setLoginMessage([<p id='error'>Could not find username or password.</p>])
-    }
-    finally {
-      navigate('/', { replace: true })
     }
   }
 
