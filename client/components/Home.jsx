@@ -1,11 +1,8 @@
 import React from 'react'
 
 const Home = () => {
-
-
   return (
     <>
-  
     <div>
       <div className='title-div'>
       <h2>Welcome to ...</h2>

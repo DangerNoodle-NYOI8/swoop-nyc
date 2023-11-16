@@ -6,8 +6,8 @@ import DatePicker from "react-datepicker";
 //import supabase API and set up connection to supabase storage of images
   //we've implemented row-level security to the database so the API key can be on the client side
 import { createClient } from '@supabase/supabase-js'
-const supabaseUrl = 'https://pvjgsahtonujtyehjsqv.supabase.co'
-const supabaseKey = process.env.REACT_APP_SUPABASE
+const supabaseUrl = 'https://sysmfptozoghrjoddqml.supabase.co';
+const supabaseKey = 'process.env.REACT_APP_SUPABASE'
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 //TODO: Add CSS for error message <p> tag 
@@ -89,7 +89,7 @@ const CreatePost = () => {
 
   //this function will populate a new selector field in the form based on what borough is selected
   const neighboorhoodPicker = () => {
-    const borough = document.querySelector('#form-borough') 
+    const borough = document.querySelector('#form-borough')
     if (borough.value === 'Brooklyn') {
       setNeighboorhoodValues([
         <select id='form-neighboorhood'>
