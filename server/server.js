@@ -11,7 +11,8 @@ const cookieParser = require('cookie-parser')
 
 //set up cors policy 
 const corsOptions = {
-  origin: "http://localhost:8080"
+  origin: "http://localhost:8080",
+  credentials: true
 };
 app.use(cors(corsOptions));
 
@@ -65,13 +66,12 @@ app.use('/favorite', (req, res)=>{
 app.use('/user-profile', (req, res)=>{
     res.status(200).sendFile(reactRouterStaticPath)
 });
-
-app.use('/build', express.static(path.join(__dirname, '../build')));
-
-// app.use('/login', userRouter);
 app.use('/login', (req, res)=>{
     res.status(200).sendFile(reactRouterStaticPath)
 });
+
+app.use('/build', express.static(path.join(__dirname, '../build')));
+
 
 //used for serving the application 
 app.use('/', (req, res)=> {
